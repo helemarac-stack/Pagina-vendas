@@ -1,221 +1,307 @@
-<title>Planilha Financeira PRO</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Planilha Financeira PRO | Controle seu dinheiro de vez</title>
+<meta name="description" content="Planilha Financeira PRO em Excel + guia bônus. Organize receitas, despesas e metas em um só lugar.">
 <style>
-/* Layout: herói escuro com mockup da planilha, benefícios, o que vem, FAQ, botão fixo no rodapé */
-:root{
-  --ink:#0A2F24; --ink-2:#0F4232; --paper:#F6FAF3; --paper-2:#E8F1E4;
-  --text:#14231D; --muted:#4F6358; --cta:#FFD43B; --cta-ink:#2A2100;
-  --red:#C8412B; --green:#1F9D63; --line:#CFE0CC;
-  --f-display:"Bricolage Grotesque","Arial Black",system-ui,sans-serif;
-  --f-body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --f-mono:"DM Mono",ui-monospace,Menlo,monospace;
-  color-scheme:light;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--paper);color:var(--text);font-family:var(--f-body);font-size:17px;line-height:1.55;padding-bottom:calc(84px + env(safe-area-inset-bottom,0px));overflow-x:hidden}
-h1,h2,h3{font-family:var(--f-display);line-height:1.08;margin:0;text-wrap:balance;letter-spacing:-.02em}
-p{margin:0}
-a{color:inherit;text-decoration:none}
-.wrap{max-width:1040px;margin-inline:auto;padding-inline:20px}
-section{padding-block:52px}
-h2{font-size:clamp(28px,6.5vw,42px);font-weight:800}
-.sub{color:var(--muted);margin-top:10px;max-width:34em}
+  :root{
+    --verde:#0f9d58; --verde-esc:#0a6b3c; --verde-claro:#e6f6ec;
+    --ouro:#ffc107; --ouro-esc:#c79400;
+    --texto:#14261c; --cinza:#5a6b62; --fundo:#f5faf7; --card:#fff;
+    --sombra:0 6px 24px rgba(10,60,35,.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--texto);background:var(--fundo);line-height:1.6;padding-bottom:84px}
+  .wrap{max-width:680px;margin:0 auto;padding:0 20px}
+  section{padding:48px 0}
+  h1,h2,h3{line-height:1.2}
+  h2{font-size:26px;text-align:center;margin-bottom:10px}
+  .lead{text-align:center;color:var(--cinza);margin-bottom:28px;font-size:16px}
+  .kicker{display:block;text-align:center;font-size:12px;letter-spacing:.12em;font-weight:800;color:var(--verde);text-transform:uppercase;margin-bottom:8px}
 
-.btn{display:inline-flex;align-items:center;justify-content:center;background:var(--cta);color:var(--cta-ink);font-family:var(--f-display);font-weight:800;font-size:19px;letter-spacing:-.01em;padding:18px 28px;border-radius:14px;border:2px solid var(--cta-ink);box-shadow:0 5px 0 var(--cta-ink);transition:transform .12s,box-shadow .12s;text-align:center}
-.btn:hover{transform:translateY(2px);box-shadow:0 3px 0 var(--cta-ink)}
-.btn:active{transform:translateY(5px);box-shadow:0 0 0 var(--cta-ink)}
-.btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
-.btn.block{display:flex;width:100%}
+  /* Botão */
+  .btn{display:block;background:var(--ouro);color:#1a1a1a;font-weight:800;font-size:18px;text-decoration:none;text-align:center;padding:18px 20px;border-radius:14px;box-shadow:0 5px 0 var(--ouro-esc);transition:transform .1s;animation:pulse 2.4s infinite}
+  .btn:active{transform:translateY(3px);box-shadow:0 2px 0 var(--ouro-esc)}
+  .btn small{display:block;font-weight:600;font-size:13px;opacity:.75;margin-top:2px}
+  @keyframes pulse{0%,100%{box-shadow:0 5px 0 var(--ouro-esc),0 0 0 0 rgba(255,193,7,.55)}50%{box-shadow:0 5px 0 var(--ouro-esc),0 0 0 12px rgba(255,193,7,0)}}
 
-.hero{background:var(--ink);color:#fff;padding-block:28px 56px;position:relative;overflow:hidden}
-.hero::before{content:"";position:absolute;inset:0;opacity:.14;pointer-events:none;background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 85%);mask-image:linear-gradient(180deg,#000,transparent 85%)}
-.hero .wrap{position:relative;display:grid;gap:36px;grid-template-columns:1fr}
-.tag{display:inline-block;font-family:var(--f-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;background:var(--cta);color:var(--cta-ink);padding:6px 12px;border-radius:6px;font-weight:500}
-.hero h1{font-size:clamp(40px,10.5vw,76px);font-weight:800;margin-top:18px}
-.hero h1 em{font-style:normal;color:var(--cta)}
-.hero .lead{font-size:19px;color:#D3E6DB;margin-top:18px;max-width:34em}
-.hero .cta-row{margin-top:26px;display:grid;gap:12px;max-width:420px}
-.hero .fine{font-size:14px;color:#9FC1B0}
-@media(min-width:860px){.hero .wrap{grid-template-columns:1.1fr .9fr;align-items:center}}
+  /* Hero */
+  .hero{background:radial-gradient(1200px 500px at 50% -10%,#14b86a 0%,transparent 60%),linear-gradient(165deg,#0a6b3c,#0f9d58);color:#fff;padding:52px 0 44px;text-align:center}
+  .badge{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);padding:7px 15px;border-radius:999px;font-size:13px;font-weight:600;margin-bottom:18px}
+  .hero h1{font-size:34px;margin-bottom:14px}
+  .hero h1 span{color:var(--ouro)}
+  .hero p.sub{font-size:17px;opacity:.95;margin-bottom:26px}
+  .hero .seguro{margin-top:14px;font-size:13px;opacity:.9}
 
-.sheet{background:#fff;color:var(--text);border-radius:14px;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,.35);border:1px solid #0006;transform:rotate(1.2deg);min-width:0}
-.sheet-bar{background:#1D6F42;color:#fff;font-size:13px;padding:8px 14px;display:flex;justify-content:space-between;font-weight:700;gap:8px}
-.sheet-scroll{overflow-x:auto}
-.sheet table{width:100%;border-collapse:collapse;font-family:var(--f-mono);font-size:13px;font-variant-numeric:tabular-nums}
-.sheet th,.sheet td{padding:8px 12px;border-bottom:1px solid #E3ECE0;text-align:left;white-space:nowrap}
-.sheet th{background:#EEF4EB;font-weight:500;color:var(--muted);font-size:12px;text-transform:uppercase}
-.sheet td:last-child,.sheet th:last-child{text-align:right}
-.pos{color:var(--green)}.neg{color:var(--red)}
-.sheet tr.total td{background:#FFF8D6;font-weight:500;border-bottom:0}
+  /* Mock da planilha */
+  .mock{background:#fff;color:var(--texto);border-radius:16px;box-shadow:0 14px 40px rgba(0,0,0,.28);margin:30px auto 0;max-width:520px;overflow:hidden;text-align:left}
+  .mock .bar{background:#107c41;color:#fff;font-size:12px;padding:8px 14px;display:flex;gap:6px;align-items:center}
+  .mock .bar i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.55);display:inline-block}
+  .mock .corpo{padding:16px}
+  .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+  .kpi{border-radius:10px;padding:10px 8px;text-align:center;font-size:11px;color:var(--cinza)}
+  .kpi b{display:block;font-size:15px;color:var(--texto);margin-top:2px}
+  .kpi.a{background:#e6f6ec}.kpi.b{background:#fdecec}.kpi.c{background:#fff7dc}
+  .barras{display:flex;align-items:flex-end;gap:7px;height:90px;padding:0 4px;border-bottom:2px solid #e5ece8}
+  .barras div{flex:1;background:linear-gradient(180deg,#22c17a,#0f9d58);border-radius:5px 5px 0 0;animation:sobe 1.2s ease-out both}
+  .barras div:nth-child(2){animation-delay:.1s}.barras div:nth-child(3){animation-delay:.2s}
+  .barras div:nth-child(4){animation-delay:.3s}.barras div:nth-child(5){animation-delay:.4s}
+  .barras div:nth-child(6){animation-delay:.5s}
+  @keyframes sobe{from{transform:scaleY(0);transform-origin:bottom}to{transform:scaleY(1);transform-origin:bottom}}
+  .mock .leg{font-size:11px;color:var(--cinza);margin-top:8px;text-align:center}
 
-.pain ul{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:12px}
-.pain li{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;gap:12px}
-.pain li::before{content:"✕";color:var(--red);font-weight:700;flex:none}
+  /* Cards e listas */
+  .card{background:var(--card);border-radius:16px;padding:20px;margin-bottom:14px;box-shadow:var(--sombra)}
+  .card h3{font-size:18px;margin-bottom:6px;color:var(--verde-esc)}
+  .card p{color:var(--cinza);font-size:15px}
+  .card .ico{font-size:28px;display:block;margin-bottom:8px}
+  .dor li,.ok li{list-style:none;background:var(--card);padding:15px 16px 15px 50px;border-radius:14px;margin-bottom:10px;position:relative;box-shadow:var(--sombra);font-size:16px}
+  .dor li::before{content:"✖";position:absolute;left:17px;color:#d64545;font-weight:800}
+  .ok li::before{content:"✔";position:absolute;left:17px;color:var(--verde);font-weight:800}
+  .alt{background:var(--verde-claro)}
 
-.benefits{background:var(--paper-2)}
-.grid{display:grid;gap:14px;margin-top:26px;grid-template-columns:1fr}
-@media(min-width:700px){.grid{grid-template-columns:repeat(2,1fr)}}
-.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;min-width:0}
-.card h3{font-size:21px;font-weight:800}
-.card p{color:var(--muted);margin-top:8px}
+  /* Antes e depois */
+  .ad{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .ad div{border-radius:14px;padding:16px;font-size:14px}
+  .ad .antes{background:#fdecec}.ad .depois{background:#e6f6ec}
+  .ad h3{font-size:15px;margin-bottom:8px}
+  .ad ul{padding-left:18px}.ad li{margin-bottom:6px}
 
-.incl{display:grid;gap:12px;margin-top:24px}
-.incl div{display:flex;gap:14px;align-items:flex-start;border-bottom:1px solid var(--line);padding-bottom:12px}
-.incl b{font-family:var(--f-display);font-size:19px;display:block}
-.incl span.ok{color:var(--green);font-weight:700;flex:none;font-size:20px;line-height:1.3}
-.incl p{color:var(--muted);font-size:16px}
+  /* Passos */
+  .passos{counter-reset:p}
+  .passo{display:flex;gap:14px;align-items:flex-start;background:var(--card);padding:16px;border-radius:14px;margin-bottom:12px;box-shadow:var(--sombra)}
+  .passo::before{counter-increment:p;content:counter(p);flex:0 0 38px;height:38px;border-radius:50%;background:var(--verde);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .passo b{display:block;margin-bottom:2px}
+  .passo span{color:var(--cinza);font-size:15px}
 
-.steps{display:grid;gap:14px;margin-top:24px}
-.step{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px}
-.step .n{flex:none;width:40px;height:40px;border-radius:50%;background:var(--ink);color:var(--cta);font-family:var(--f-display);font-weight:800;font-size:20px;display:grid;place-items:center}
-.step b{font-family:var(--f-display);font-size:20px;display:block}
-.step p{color:var(--muted);font-size:16px}
-.ba{display:grid;gap:14px;margin-top:24px;grid-template-columns:1fr}
-@media(min-width:700px){.ba{grid-template-columns:1fr 1fr}}
-.ba h3{font-size:22px;font-weight:800;margin-bottom:10px}
-.ba ul{margin:0;padding-left:20px;display:grid;gap:8px}
-.before,.after{border-radius:14px;padding:20px;min-width:0}
-.before{background:#fff;border:1px solid var(--line)}
-.before h3{color:var(--red)}
-.after{background:var(--ink);color:#fff}
-.after h3{color:var(--cta)}
-.offer{background:var(--ink);color:#fff;text-align:center}
-.offer h2{color:#fff}
-.offer .sub{margin-inline:auto;color:#D3E6DB}
-.offer .btn{margin-top:26px;max-width:420px;margin-inline:auto}
-.offer .fine{font-size:14px;color:#9FC1B0;margin-top:14px}
+  /* Oferta */
+  .oferta{background:#fff;border:3px solid var(--verde);border-radius:20px;padding:28px 22px;text-align:center;box-shadow:var(--sombra);position:relative}
+  .oferta .fita{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--verde);color:#fff;font-size:12px;font-weight:800;padding:6px 16px;border-radius:999px;letter-spacing:.06em;white-space:nowrap}
+  .oferta h2{margin-top:8px}
+  .oferta .inclui{text-align:left;margin:18px 0 22px}
+  .oferta .inclui li{list-style:none;padding:8px 0 8px 30px;position:relative;border-bottom:1px dashed #d8e5dd;font-size:15px}
+  .oferta .inclui li::before{content:"✔";position:absolute;left:4px;color:var(--verde);font-weight:800}
+  .oferta .preco{font-size:14px;color:var(--cinza);margin-bottom:16px}
+  .pagto{font-size:13px;color:var(--cinza);margin-top:14px}
 
-details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-top:12px}
-summary{font-weight:700;cursor:pointer}
-details p{color:var(--muted);margin-top:10px}
+  /* Garantia */
+  .garantia{display:flex;gap:16px;align-items:center;background:#fff;border-radius:16px;padding:20px;box-shadow:var(--sombra)}
+  .garantia .selo{flex:0 0 70px;height:70px;border-radius:50%;background:var(--ouro);display:flex;align-items:center;justify-content:center;text-align:center;font-weight:900;font-size:20px;line-height:1;color:#1a1a1a}
+  .garantia .selo small{display:block;font-size:10px;font-weight:700}
+  .garantia p{font-size:15px;color:var(--cinza)}
 
-footer{padding-block:28px;font-size:14px;color:var(--muted);text-align:center}
+  /* FAQ */
+  details{background:var(--card);border-radius:14px;padding:16px 18px;margin-bottom:10px;box-shadow:var(--sombra)}
+  summary{font-weight:700;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:10px}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";font-size:22px;color:var(--verde);line-height:1}
+  details[open] summary::after{content:"–"}
+  details p{margin-top:10px;color:var(--cinza);font-size:15px}
 
-.sticky{position:fixed;left:0;right:0;bottom:0;background:var(--ink);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));border-top:2px solid var(--cta);z-index:10}
-.sticky .btn{width:100%;padding:14px 20px;font-size:18px}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
+  /* Final */
+  .final{background:linear-gradient(165deg,#0a6b3c,#0f9d58);color:#fff;text-align:center;padding:52px 0}
+  .final h2{color:#fff}
+  .final p{opacity:.95;margin-bottom:24px}
+  footer{text-align:center;color:var(--cinza);font-size:12px;padding:24px 20px}
+
+  /* Barra fixa */
+  .fixa{position:fixed;left:0;right:0;bottom:0;background:#fff;padding:10px 16px;box-shadow:0 -4px 20px rgba(0,0,0,.12);z-index:50;transform:translateY(110%);transition:transform .3s}
+  .fixa.on{transform:translateY(0)}
+  .fixa .btn{padding:14px;font-size:16px;animation:none;box-shadow:0 3px 0 var(--ouro-esc)}
+
+  /* Revelar */
+  .rev{opacity:0;transform:translateY(22px);transition:opacity .6s,transform .6s}
+  .rev.vis{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.rev{opacity:1;transform:none;transition:none}.btn,.barras div{animation:none}}
+  @media(max-width:420px){.hero h1{font-size:29px}h2{font-size:23px}.ad{grid-template-columns:1fr}}
 </style>
+</head>
+<body>
 
+<!-- HERO -->
 <header class="hero">
   <div class="wrap">
-    <div>
-      <span class="tag">Excel + guia bônus</span>
-      <h1>Saiba para onde vai <em>cada real</em> que você ganha.</h1>
-      <p class="lead">Planilha Financeira PRO: você lança suas entradas e saídas e ela mostra o saldo do mês, quanto sobrou e onde o dinheiro está escapando.</p>
-      <div class="cta-row">
-        <a class="btn block" href="https://pay.kiwify.com.br/EKi8NQA">QUERO MINHA PLANILHA</a>
-        <p class="fine">Acesso imediato depois da compra. Pagamento pela Kiwify.</p>
-      </div>
-    </div>
-    <div class="sheet" aria-label="Exemplo da planilha">
-      <div class="sheet-bar"><span>Planilha Financeira PRO</span><span>Outubro</span></div>
-      <div class="sheet-scroll">
-        <table>
-          <thead><tr><th>Item</th><th>Tipo</th><th>Valor</th></tr></thead>
-          <tbody>
-            <tr><td>Salário</td><td>Entrada</td><td class="pos">+ R$ 2.400,00</td></tr>
-            <tr><td>Aluguel</td><td>Fixa</td><td class="neg">− R$ 800,00</td></tr>
-            <tr><td>Mercado</td><td>Variável</td><td class="neg">− R$ 520,00</td></tr>
-            <tr><td>Internet</td><td>Fixa</td><td class="neg">− R$ 99,00</td></tr>
-            <tr class="total"><td>Sobrou</td><td></td><td>R$ 981,00</td></tr>
-          </tbody>
-        </table>
+    <span class="badge">📊 Planilha em Excel + Guia Bônus</span>
+    <h1>Pare de se perguntar <span>“para onde foi meu dinheiro?”</span></h1>
+    <p class="sub">A Planilha Financeira PRO organiza suas receitas, despesas e metas em um só lugar, de um jeito simples e pronto para usar.</p>
+    <a class="btn" href="https://pay.kiwify.com.br/EKi8NQA">QUERO ORGANIZAR MEU DINHEIRO<small>Acesso imediato após o pagamento</small></a>
+    <p class="seguro">🔒 Pagamento 100% seguro pela Kiwify</p>
+
+    <div class="mock" aria-hidden="true">
+      <div class="bar"><i></i><i></i><i></i>&nbsp; Planilha Financeira PRO.xlsx</div>
+      <div class="corpo">
+        <div class="kpis">
+          <div class="kpi a">Receitas<b>R$ ••••</b></div>
+          <div class="kpi b">Despesas<b>R$ ••••</b></div>
+          <div class="kpi c">Saldo<b>R$ ••••</b></div>
+        </div>
+        <div class="barras"><div style="height:45%"></div><div style="height:70%"></div><div style="height:55%"></div><div style="height:85%"></div><div style="height:65%"></div><div style="height:95%"></div></div>
+        <div class="leg">Ilustração do painel de controle</div>
       </div>
     </div>
   </div>
 </header>
 
-<section class="pain">
-  <div class="wrap">
-    <h2>Se isso acontece com você, a planilha é para você</h2>
-    <ul>
-      <li>O salário cai e, no meio do mês, você já não sabe para onde foi.</li>
-      <li>Você anota gastos no caderno ou nas notas do celular e depois não consegue somar.</li>
-      <li>Tem vontade de guardar dinheiro, mas nunca sabe quanto sobra de verdade.</li>
+<!-- DORES -->
+<section>
+  <div class="wrap rev">
+    <span class="kicker">Reconhece isso?</span>
+    <h2>Dinheiro sem controle vira estresse</h2>
+    <p class="lead">Se algum destes pontos é a sua realidade, você não está sozinho.</p>
+    <ul class="dor">
+      <li>O salário cai na conta e, poucos dias depois, já acabou</li>
+      <li>Você não sabe exatamente quanto gasta por mês</li>
+      <li>Esquece vencimentos e ainda paga juros e multas</li>
+      <li>Quer guardar dinheiro, mas “nunca sobra nada”</li>
+      <li>Já tentou se organizar e desistiu porque era complicado demais</li>
     </ul>
   </div>
 </section>
 
-<section class="benefits">
-  <div class="wrap">
-    <h2>O que ela faz por você</h2>
-    <p class="sub">Você só digita os valores. As contas são feitas pela planilha.</p>
-    <div class="grid">
-      <div class="card"><h3>Saldo do mês na hora</h3><p>Entradas menos saídas, calculado sozinho a cada lançamento.</p></div>
-      <div class="card"><h3>Gastos fixos e variáveis</h3><p>Veja separado o que é conta de todo mês e o que dá para cortar.</p></div>
-      <div class="card"><h3>Simples de usar</h3><p>Abre no Excel ou no celular, sem fórmula para você escrever.</p></div>
-      <div class="card"><h3>Meta de economia</h3><p>Defina quanto quer guardar e acompanhe se está no caminho.</p></div>
-    </div>
+<!-- SOLUÇÃO -->
+<section class="alt">
+  <div class="wrap rev">
+    <span class="kicker">A solução</span>
+    <h2>Tudo o que você precisa, sem complicação</h2>
+    <p class="lead">Uma planilha pronta: você preenche seus valores e ela faz as contas.</p>
+    <div class="card"><span class="ico">💰</span><h3>Receitas e despesas</h3><p>Registre tudo o que entra e sai e veja o saldo do mês de forma clara.</p></div>
+    <div class="card"><span class="ico">🗂️</span><h3>Gastos por categoria</h3><p>Descubra em que o seu dinheiro está indo e onde dá para economizar.</p></div>
+    <div class="card"><span class="ico">📅</span><h3>Contas e vencimentos</h3><p>Tenha suas contas organizadas para não perder mais nenhum prazo.</p></div>
+    <div class="card"><span class="ico">🎯</span><h3>Metas de economia</h3><p>Defina quanto quer guardar e acompanhe o seu progresso.</p></div>
+    <div class="card"><span class="ico">🎁</span><h3>Guia bônus</h3><p>Um material de apoio para você criar o hábito de cuidar do seu dinheiro.</p></div>
   </div>
 </section>
 
+<!-- ANTES E DEPOIS -->
 <section>
-  <div class="wrap">
-    <h2>Como funciona, em 3 passos</h2>
-    <div class="steps">
-      <div class="step"><span class="n">1</span><div><b>Abra a planilha</b><p>No Excel ou no Planilhas Google, direto do celular.</p></div></div>
-      <div class="step"><span class="n">2</span><div><b>Lance o que entrou e o que saiu</b><p>Leva poucos minutos por dia. Só digite o valor.</p></div></div>
-      <div class="step"><span class="n">3</span><div><b>Veja o resultado do mês</b><p>Saldo, gastos por tipo e quanto sobrou para guardar.</p></div></div>
-    </div>
-    <div style="margin-top:28px;max-width:420px"><a class="btn block" href="https://pay.kiwify.com.br/EKi8NQA">QUERO MINHA PLANILHA</a></div>
-  </div>
-</section>
-
-<section class="benefits">
-  <div class="wrap">
-    <h2>Antes e depois</h2>
-    <div class="ba">
-      <div class="before"><h3>Sem a planilha</h3><ul><li>Dinheiro some e você não sabe onde</li><li>Contas anotadas em vários lugares</li><li>Sobra pouco ou nada no fim do mês</li><li>Medo de olhar o saldo</li></ul></div>
-      <div class="after"><h3>Com a planilha</h3><ul><li>Cada gasto no seu lugar</li><li>Tudo em uma tela só</li><li>Você vê quanto pode guardar</li><li>Controle para decidir com calma</li></ul></div>
+  <div class="wrap rev">
+    <span class="kicker">A diferença</span>
+    <h2>Antes e depois da planilha</h2>
+    <p class="lead">Veja o que muda quando você passa a enxergar seu dinheiro.</p>
+    <div class="ad">
+      <div class="antes">
+        <h3>😟 Antes</h3>
+        <ul><li>Gastos no escuro</li><li>Contas esquecidas</li><li>Ansiedade no fim do mês</li><li>Sem plano para guardar</li></ul>
+      </div>
+      <div class="depois">
+        <h3>😊 Depois</h3>
+        <ul><li>Gastos visíveis</li><li>Vencimentos sob controle</li><li>Mais tranquilidade</li><li>Metas com acompanhamento</li></ul>
+      </div>
     </div>
   </div>
 </section>
 
+<!-- COMO FUNCIONA -->
+<section class="alt">
+  <div class="wrap rev">
+    <span class="kicker">Passo a passo</span>
+    <h2>Como funciona</h2>
+    <p class="lead">Em poucos minutos você já pode começar.</p>
+    <div class="passos">
+      <div class="passo"><div><b>Faça a compra</b><span>Pagamento rápido e seguro pela Kiwify.</span></div></div>
+      <div class="passo"><div><b>Receba o acesso</b><span>Baixe a planilha e o guia bônus.</span></div></div>
+      <div class="passo"><div><b>Preencha seus dados</b><span>Coloque suas receitas e despesas nos campos indicados.</span></div></div>
+      <div class="passo"><div><b>Acompanhe seus resultados</b><span>Veja o saldo, os gastos e as metas atualizados.</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PARA QUEM -->
 <section>
-  <div class="wrap">
-    <h2>Feita para quem</h2>
-    <div class="grid">
-      <div class="card"><h3>Quer sair do aperto</h3><p>Precisa entender para onde o salário está indo.</p></div>
-      <div class="card"><h3>Trabalha por conta própria</h3><p>Renda que muda de mês para mês fica mais fácil de acompanhar.</p></div>
-      <div class="card"><h3>Quer guardar dinheiro</h3><p>Defina uma meta e veja se ela cabe no seu orçamento.</p></div>
-      <div class="card"><h3>Não gosta de coisa complicada</h3><p>É só preencher. Não tem fórmula para mexer.</p></div>
+  <div class="wrap rev">
+    <span class="kicker">Para quem é</span>
+    <h2>Esta planilha é para você que…</h2>
+    <ul class="ok" style="margin-top:20px">
+      <li>Quer organizar o orçamento pessoal ou da família</li>
+      <li>Está começando a cuidar das finanças e quer algo simples</li>
+      <li>Quer sair do aperto e começar a guardar dinheiro</li>
+      <li>Prefere uma ferramenta pronta em vez de montar tudo do zero</li>
+    </ul>
+  </div>
+</section>
+
+<!-- OFERTA -->
+<section class="alt" id="oferta">
+  <div class="wrap rev">
+    <div class="oferta">
+      <span class="fita">OFERTA COMPLETA</span>
+      <h2>Planilha Financeira PRO</h2>
+      <ul class="inclui">
+        <li>Planilha em Excel pronta para usar</li>
+        <li>Controle de receitas e despesas</li>
+        <li>Gastos por categoria</li>
+        <li>Contas a pagar e metas de economia</li>
+        <li>Guia bônus de apoio</li>
+        <li>Acesso imediato após o pagamento</li>
+      </ul>
+      <p class="preco">Confira o valor e as condições na página de pagamento.</p>
+      <a class="btn" href="https://pay.kiwify.com.br/EKi8NQA">SIM, QUERO A PLANILHA PRO<small>Compra segura pela Kiwify</small></a>
+      <p class="pagto">🔒 Seus dados protegidos na plataforma de pagamento</p>
     </div>
   </div>
 </section>
 
+<!-- GARANTIA -->
 <section>
-  <div class="wrap">
-    <h2>O que você recebe</h2>
-    <div class="incl">
-      <div><span class="ok">✓</span><span><b>Planilha Financeira PRO (Excel)</b><p>Pronta para preencher e usar todos os meses.</p></span></div>
-      <div><span class="ok">✓</span><span><b>Guia bônus</b><p>Passo a passo para organizar o dinheiro e começar a guardar.</p></span></div>
-      <div><span class="ok">✓</span><span><b>Acesso imediato</b><p>Depois da confirmação do pagamento, o acesso chega no seu e-mail.</p></span></div>
+  <div class="wrap rev">
+    <div class="garantia">
+      <div class="selo"><div>7<small>DIAS</small></div></div>
+      <div>
+        <h3 style="margin-bottom:4px">Compre com tranquilidade</h3>
+        <p>Você conta com o prazo de garantia de 7 dias previsto nas regras da Kiwify. Se não for o que esperava, pode pedir o reembolso dentro do prazo.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="offer">
-  <div class="wrap">
-    <h2>Comece o mês sabendo onde está o seu dinheiro</h2>
-    <p class="sub">Clique no botão, finalize na Kiwify e receba o acesso.</p>
-    <a class="btn block" href="https://pay.kiwify.com.br/EKi8NQA">QUERO MINHA PLANILHA</a>
-    <p class="fine">Compra segura pela Kiwify.</p>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
+<!-- FAQ -->
+<section class="alt">
+  <div class="wrap rev">
+    <span class="kicker">Dúvidas</span>
     <h2>Perguntas frequentes</h2>
-    <details><summary>Preciso saber Excel?</summary><p>Não. Você só digita os valores nas células indicadas e o resto é calculado pela planilha.</p></details>
-    <details><summary>Funciona no celular?</summary><p>Sim. Ela abre no aplicativo do Excel e também no Planilhas Google.</p></details>
-    <details><summary>Como recebo?</summary><p>Logo após a confirmação do pagamento, a Kiwify envia o acesso para o e-mail da compra.</p></details>
-    <details><summary>Posso pedir reembolso?</summary><p>Sim, dentro do prazo de garantia da Kiwify, direto pela plataforma.</p></details>
+    <p class="lead">Tudo o que você precisa saber antes de comprar.</p>
+    <details><summary>Como recebo a planilha?</summary><p>Após a confirmação do pagamento, o acesso é liberado pela Kiwify e você pode baixar os arquivos.</p></details>
+    <details><summary>Preciso entender de Excel?</summary><p>Não. A planilha já vem pronta: basta preencher seus valores.</p></details>
+    <details><summary>Funciona no celular?</summary><p>É uma planilha em Excel (.xlsx). No celular, você pode usar o aplicativo Excel ou outro aplicativo compatível com esse formato.</p></details>
+    <details><summary>É pagamento único?</summary><p>As condições de pagamento aparecem na página de checkout da Kiwify, antes de você finalizar a compra.</p></details>
+    <details><summary>E se eu tiver algum problema?</summary><p>Você pode pedir reembolso dentro do prazo de garantia, e o suporte segue as informações da página de pagamento.</p></details>
   </div>
 </section>
 
-<footer><div class="wrap">Planilha Financeira PRO · Pagamento processado pela Kiwify</div></footer>
+<!-- FINAL -->
+<section class="final">
+  <div class="wrap rev">
+    <h2>Chega de dinheiro sem rumo</h2>
+    <p>Comece hoje a ter clareza sobre as suas finanças.</p>
+    <a class="btn" href="https://pay.kiwify.com.br/EKi8NQA">QUERO A PLANILHA FINANCEIRA PRO<small>Acesso imediato</small></a>
+  </div>
+</section>
 
-<div class="sticky"><a class="btn" href="https://pay.kiwify.com.br/EKi8NQA">QUERO MINHA PLANILHA</a></div>
+<footer>© Planilha Financeira PRO. Todos os direitos reservados.<br>Pagamento processado pela Kiwify.</footer>
+
+<!-- Barra fixa -->
+<div class="fixa" id="fixa">
+  <a class="btn" href="https://pay.kiwify.com.br/EKi8NQA">QUERO A PLANILHA PRO</a>
+</div>
+
+<script>
+  // Revelar seções ao rolar
+  var itens=document.querySelectorAll('.rev');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}})},{threshold:.12});
+    itens.forEach(function(i){io.observe(i)});
+  }else{itens.forEach(function(i){i.classList.add('vis')})}
+  // Barra fixa aparece depois do topo e some na oferta
+  var fixa=document.getElementById('fixa'),oferta=document.getElementById('oferta');
+  function ajusta(){
+    var y=window.scrollY,o=oferta.getBoundingClientRect();
+    var naOferta=o.top<window.innerHeight&&o.bottom>0;
+    fixa.classList.toggle('on',y>500&&!naOferta);
+  }
+  window.addEventListener('scroll',ajusta,{passive:true});ajusta();
+</script>
+</body>
+</html>
